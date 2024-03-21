@@ -29,8 +29,9 @@ namespace Route.C41.G02.PL
 
             //services.AddScoped<ApplicationDbContext>();
             //services.AddScoped<DbContextOptions<ApplicationDbContext>>();
+
             services.AddDbContext<ApplicationDbContext>(options=>{ 
-                options.UseSqlServer("server=.; database=CompanyMVC; Trusted_Connection = true; "); 
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")); 
             });
         }
 
