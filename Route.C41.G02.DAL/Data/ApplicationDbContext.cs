@@ -9,14 +9,19 @@ using System.Threading.Tasks;
 
 namespace Route.C41.G02.DAL.Data
 {
-    internal class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : DbContext
     {
         public DbSet<Department> Departments { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options):base(options)
         {
-            optionsBuilder.UseSqlServer("server=.; database=CompanyMVC; Trusted_Connection = true; ");
+            
         }
+
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    optionsBuilder.UseSqlServer("server=.; database=CompanyMVC; Trusted_Connection = true; ");
+        //}
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
