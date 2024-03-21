@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Route.C41.G02.BLL.Interfaces;
+using Route.C41.G02.BLL.Repositories;
 using Route.C41.G02.DAL.Data;
 using System;
 using System.Collections.Generic;
@@ -35,7 +36,7 @@ namespace Route.C41.G02.PL
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")); 
             });
 
-            services.AddScoped<IDepartmentRepository , IDepartmentRepository>();
+            services.AddScoped<IDepartmentRepository, DepartmentRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

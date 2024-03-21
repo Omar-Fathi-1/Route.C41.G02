@@ -8,7 +8,7 @@ namespace Route.C41.G02.PL.Controllers
     {
 
         private readonly IDepartmentRepository _DepartmentRepository;
-        public DepartmentController(DepartmentRepository DepartmentRepository)
+        public DepartmentController(IDepartmentRepository DepartmentRepository)
         {
             _DepartmentRepository = DepartmentRepository;
         }
