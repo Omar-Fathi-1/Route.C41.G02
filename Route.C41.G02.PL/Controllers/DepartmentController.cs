@@ -2,6 +2,7 @@
 using Route.C41.G02.BLL.Interfaces;
 using Route.C41.G02.BLL.Repositories;
 using Route.C41.G02.DAL.Models;
+using System;
 
 namespace Route.C41.G02.PL.Controllers
 {
@@ -45,5 +46,35 @@ namespace Route.C41.G02.PL.Controllers
             return View(department);
         }
 
+        [HttpGet]
+        public IActionResult Edit(int? id)
+        {
+            if (id is null)
+                return BadRequest();
+            var department = _DepartmentRepository.Get(id.Value);
+            if (department is null)
+                return NotFound();
+            return View(department);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(Department department)
+        {
+            if (ModelState.IsValid) // server side Validation [chick validation]
+            {
+                try
+                {
+                    _DepartmentRepository.Update(department);
+                    return RedirectToAction(nameof(Index));
+                }
+                catch (Exception ex)
+                {
+                    // 1. Log Exeption
+                    // 2. Friendly Message
+                    ModelState.AddModelError(string.Empty, ex.Message);
+                }
+            }
+            return View(department);
+        }
     }
 }
