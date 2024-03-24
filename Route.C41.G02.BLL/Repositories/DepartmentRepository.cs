@@ -10,31 +10,16 @@ using System.Threading.Tasks;
 
 namespace Route.C41.G02.BLL.Repositories
 {
-    public class DepartmentRepository : IDepartmentRepository
+    public class DepartmentRepository : GenericRepository<Department> ,IDepartmentRepository
     {
-        private readonly ApplicationDbContext _dbContext;
-        public DepartmentRepository(ApplicationDbContext dbContext)
+
+        public DepartmentRepository(ApplicationDbContext dbContext) : base(dbContext) 
         {
-            _dbContext = dbContext;
         }
-        public int Add(Department Department)
+
+        public IQueryable<Employee> GetEmployeesByAddress(string address)
         {
-            _dbContext.Departments.Add(Department);
-            return _dbContext.SaveChanges();
+            return _dbContext.Employees.Where(E => E.Address.ToLower() == address.ToLower());
         }
-        public int Delete(Department Department)
-        {
-            _dbContext.Departments.Remove(Department);
-            return _dbContext.SaveChanges();
-        }
-        public int Update(Department Department)
-        {
-            _dbContext.Departments.Update(Department);
-            return _dbContext.SaveChanges();
-        }
-        public Department Get(int id)
-            => _dbContext.Departments.Find(id);
-        public IEnumerable<Department> GetAll()
-            => _dbContext.Departments.AsNoTracking().ToList();
-    }
+}
 }

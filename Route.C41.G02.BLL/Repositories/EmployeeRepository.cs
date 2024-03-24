@@ -10,31 +10,10 @@ using System.Threading.Tasks;
 
 namespace Route.C41.G02.BLL.Repositories
 {
-    internal class EmployeeRepository:IEmployeeRepository
+    internal class EmployeeRepository : GenericRepository<Employee>,IEmployeeRepository
     {
-        private readonly ApplicationDbContext _dbContext;
-        public EmployeeRepository(ApplicationDbContext dbContext)
+        public EmployeeRepository(ApplicationDbContext dbContext) : base(dbContext)
         {
-            _dbContext = dbContext;
         }
-        public int Add(Employee entity)
-        {
-            _dbContext.Employees.Add(entity);
-            return _dbContext.SaveChanges();
-        }
-        public int Delete(Employee entity)
-        {
-            _dbContext.Employees.Remove(entity);
-            return _dbContext.SaveChanges();
-        }
-        public int Update(Employee entity)
-        {
-            _dbContext.Employees.Update(entity);
-            return _dbContext.SaveChanges();
-        }
-        public Employee Get(int id)
-            => _dbContext.Employees.Find(id);
-        public IEnumerable<Employee> GetAll()
-            => _dbContext.Employees.AsNoTracking().ToList();
-    }
+}
 }
