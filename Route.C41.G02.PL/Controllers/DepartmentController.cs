@@ -36,7 +36,7 @@ namespace Route.C41.G02.PL.Controllers
             return View(department);
         }
         [HttpGet]
-        public IActionResult Details(int? id)
+        public IActionResult Details(int? id ,string viewName = "Details")
         {
             if (!id.HasValue)
                 return BadRequest();
@@ -79,5 +79,32 @@ namespace Route.C41.G02.PL.Controllers
             }
             return View(department);
         }
+
+        [HttpGet]
+        public IActionResult Delete(int? id)
+        {
+            return Details(id, "Delete");
+        }
+
+        [HttpPost]
+        public IActionResult Delete([FromRoute] int id, Department department)
+        {
+            if (id != department.Id)
+            {
+                return BadRequest();
+            }
+            try
+            {
+                _DepartmentRepository.Delete(department);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, ex.Message);
+            }
+            return View(department);
+        }
+        }
+
+
     }
-}
