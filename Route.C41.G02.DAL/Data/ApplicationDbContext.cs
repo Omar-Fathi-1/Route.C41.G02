@@ -12,6 +12,7 @@ namespace Route.C41.G02.DAL.Data
     public class ApplicationDbContext : DbContext
     {
         public DbSet<Department> Departments { get; set; }
+        public DbSet<Employee> Employees { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options):base(options)
         {
