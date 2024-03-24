@@ -1,0 +1,41 @@
+﻿@model Employee
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Are You Sure Delete This Employee ? </h1>
+<form asp-action="Delete">
+    <div class="mb-3">
+        <label asp-for="Name" class="form-label"></label>
+        <input asp-for="Name" class="form-control" readonly>
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Age" class="form-label"></label>
+        <input asp-for="Age" class="form-control" readonly>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Email" class="form-label"></label>
+        <input asp-for="Email" class="form-control" readonly>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Salary" class="form-label"></label>
+        <input asp-for="Salary" class="form-control" readonly>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Gender" class="form-label"></label>
+        <input asp-for="Gender" class="form-control" readonly>
+    </div>
+    <div class="mb-3">
+        <input asp-for="IsActive" class="form-check-input" readonly>
+        <label asp-for="IsActive" class="form-label"></label>
+    </div>
+    <div class="mb-3">
+        <label asp-for="HiringDate" class="form-label"></label>
+        <input asp-for="HiringDate" class="form-check-input" readonly>
+    </div>
+    <input type="submit" value="Delete" class="btn btn-danger" />
+    <a asp-controller="Employee" asp-action="Index" class="btn btn-light">Back To List</a>
+</form>
+

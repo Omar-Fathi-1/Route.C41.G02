@@ -1,0 +1,38 @@
+﻿@model Employee
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1 class="text-primary">Employee Details</h1>
+<div class="mb-3">
+    <label asp-for="Name" class="form-label"></label>
+    <input asp-for="Name" class="form-control" readonly>
+    <span asp-validation-for="Name" class="text-danger"></span>
+</div>
+<div class="mb-3">
+    <label asp-for="Age" class="form-label"></label>
+    <input asp-for="Age" class="form-control" readonly>
+</div>
+<div class="mb-3">
+    <label asp-for="Email" class="form-label"></label>
+    <input asp-for="Email" class="form-control" readonly>
+</div>
+<div class="mb-3">
+    <label asp-for="Salary" class="form-label"></label>
+    <input asp-for="Salary" class="form-control" readonly>
+</div>
+<div class="mb-3">
+    <label asp-for="Gender" class="form-label"></label>
+    <input asp-for="Gender" class="form-control" readonly>
+</div>
+<div class="mb-3">
+    <input asp-for="IsActive" class="form-check-input" readonly>
+    <label asp-for="IsActive" class="form-label"></label>
+</div>
+<div class="mb-3">
+    <label asp-for="HiringDate" class="form-label"></label>
+    <input asp-for="HiringDate" class="form-check-input" readonly>
+</div>
+<a asp-controller="Employee" asp-route-id="@Model.Id" asp-action="Edit" class="btn btn-primary">Edit</a>
+<a asp-controller="Employee" asp-action="Index" class="btn btn-light">Back</a>
+
