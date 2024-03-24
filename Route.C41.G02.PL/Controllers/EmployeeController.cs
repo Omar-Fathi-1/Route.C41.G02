@@ -1,24 +1,22 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Route.C41.G02.BLL.Interfaces;
-using Route.C41.G02.BLL.Repositories;
 using Route.C41.G02.DAL.Models;
+using Route.C41.G02.BLL.Repositories;
 using System;
-
 namespace Route.C41.G02.PL.Controllers
 {
-    public class DepartmentController : Controller
+    public class EmployeeController : Controller
     {
-
-        private readonly IDepartmentRepository _DepartmentRepository;
-        public DepartmentController(IDepartmentRepository DepartmentRepository)
+        private readonly IEmployeeRepository _EmployeeRepository;
+        public EmployeeController(IEmployeeRepository EmployeeRepository)
         {
-            _DepartmentRepository = DepartmentRepository;
+            _EmployeeRepository = EmployeeRepository;
         }
+        [HttpGet]
         public IActionResult Index()
         {
-            var Departments = _DepartmentRepository.GetAll();
-            
-            return View(Departments);
+            var Employees = _EmployeeRepository.GetAll();
+            return View(Employees);
         }
         [HttpGet]
         public IActionResult Create()
@@ -26,25 +24,25 @@ namespace Route.C41.G02.PL.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Create(Department department)
+        public IActionResult Create(Employee Employee)
         {
             if (ModelState.IsValid)
             {
-                var count = _DepartmentRepository.Add(department);
-                if(count > 0)
+                var count = _EmployeeRepository.Add(Employee);
+                if (count > 0)
                     return RedirectToAction(nameof(Index));
             }
-            return View(department);
+            return View(Employee);
         }
         [HttpGet]
-        public IActionResult Details(int? id ,string viewName = "Details")
+        public IActionResult Details(int? id, string viewName = "Details")
         {
             if (!id.HasValue)
                 return BadRequest();
-            var department = _DepartmentRepository.Get(id.Value);
-            if (department is null)
+            var Employee = _EmployeeRepository.Get(id.Value);
+            if (Employee is null)
                 return NotFound();
-            return View(department);
+            return View(Employee);
         }
 
         [HttpGet]
@@ -52,23 +50,23 @@ namespace Route.C41.G02.PL.Controllers
         {
             if (id is null)
                 return BadRequest();
-            var department = _DepartmentRepository.Get(id.Value);
-            if (department is null)
+            var Employee = _EmployeeRepository.Get(id.Value);
+            if (Employee is null)
                 return NotFound();
-            return View(department);
+            return View(Employee);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit([FromRoute] int id, Department department)
+        public IActionResult Edit([FromRoute] int id, Employee Employee)
         {
-            if(id != department.Id)
+            if (id != Employee.Id)
                 return BadRequest();
             if (ModelState.IsValid) // server side Validation [chick validation]
             {
                 try
                 {
-                    _DepartmentRepository.Update(department);
+                    _EmployeeRepository.Update(Employee);
                     return RedirectToAction(nameof(Index));
                 }
                 catch (Exception ex)
@@ -78,7 +76,7 @@ namespace Route.C41.G02.PL.Controllers
                     ModelState.AddModelError(string.Empty, ex.Message);
                 }
             }
-            return View(department);
+            return View(Employee);
         }
 
         [HttpGet]
@@ -88,24 +86,24 @@ namespace Route.C41.G02.PL.Controllers
         }
 
         [HttpPost]
-        public IActionResult Delete([FromRoute] int id, Department department)
+        public IActionResult Delete([FromRoute] int id, Employee Employee)
         {
-            if (id != department.Id)
+            if (id != Employee.Id)
             {
                 return BadRequest();
             }
             try
             {
-                _DepartmentRepository.Delete(department);
+                _EmployeeRepository.Delete(Employee);
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)
             {
                 ModelState.AddModelError(string.Empty, ex.Message);
             }
-            return View(department);
+            return View(Employee);
         }
-        }
-
-
     }
+
+}
+
